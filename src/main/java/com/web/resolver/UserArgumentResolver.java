@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import static com.web.domain.enums.SocialType.FACEBOOK;
 import static com.web.domain.enums.SocialType.GOOGLE;
 
+// HandlerMethodArgumentResolver 를 상속하여 리졸버 정의
 @Component
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
@@ -41,6 +42,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         return parameter.getParameterAnnotation(SocialUser.class) != null && parameter.getParameterType().equals(User.class);
     }
 
+    // 세션을 확인하여 User 객체를 가져오는 함수
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
@@ -48,6 +50,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         return getUser(user, session);
     }
 
+    // 인증된 User 객체를 만들어 권한을 부여하는 함수
     private User getUser(User user, HttpSession session) {
         if(user == null) {
             try {
@@ -67,12 +70,14 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         return user;
     }
 
+    // 빌더를 사용하여 User 객체를 만들어주는 역할을 하는 함수
     private User convertUser(String authority, Map<String, Object> map) {
         if(FACEBOOK.isEquals(authority)) return getModernUser(FACEBOOK, map);
         else if(GOOGLE.isEquals(authority)) return getModernUser(GOOGLE, map);
         return null;
     }
-
+    
+    // FaceBook Gooogle의 공통 명명규칙을 가진 그룹으로 User를 매핑
     private User getModernUser(SocialType socialType, Map<String, Object> map) {
         return User.builder()
                 .name(String.valueOf(map.get("name")))
@@ -83,6 +88,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                 .build();
     }
 
+    // 권한을 갖고 있는지 체크하는 함수
     private void setRoleIfNotSame(User user, OAuth2AuthenticationToken authentication, Map<String, Object> map) {
         if(!authentication.getAuthorities().contains(new SimpleGrantedAuthority(user.getSocialType().getRoleType()))) {
             SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(map, "N/A", AuthorityUtils.createAuthorityList(user.getSocialType().getRoleType())));

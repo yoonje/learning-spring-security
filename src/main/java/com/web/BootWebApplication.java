@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootApplication
+// UserArgumentResolver를 이용하기 위해서 WebMvcConfigurer 상속
 public class BootWebApplication implements WebMvcConfigurer {
 
 	@Autowired
@@ -29,6 +30,7 @@ public class BootWebApplication implements WebMvcConfigurer {
 		SpringApplication.run(BootWebApplication.class, args);
 	}
 
+	// HandlerMethodArgumentResolver 오버라이드에서 argumentResolvers에 userArgumentResolver를 등록
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		argumentResolvers.add(userArgumentResolver);

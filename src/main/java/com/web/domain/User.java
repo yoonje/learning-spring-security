@@ -31,9 +31,11 @@ public class User implements Serializable {
     @Column
     private String email;
 
+    // OAuth2 인증으로 제공받는 키값
     @Column
     private String pincipal;
 
+    // 소셜 미디어로 인증받았는지 여부를 구분해주는 타입
     @Column
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
