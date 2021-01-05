@@ -16,8 +16,4 @@ public class AuthorityTestController {
         return "google";
     }
 
-    @GetMapping("/kakao")
-    public String kakao() {
-        return "kakao";
-    }
 }
