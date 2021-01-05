@@ -77,7 +77,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         return null;
     }
     
-    // FaceBook Gooogle의 공통 명명규칙을 가진 그룹으로 User를 매핑
+    // FaceBook Gooogle의 공통 명명규칙을 가진 그룹으로 User를 매핑하는 함수
     private User getModernUser(SocialType socialType, Map<String, Object> map) {
         return User.builder()
                 .name(String.valueOf(map.get("name")))
