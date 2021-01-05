@@ -15,9 +15,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import static com.web.domain.enums.SocialType.FACEBOOK;
 import static com.web.domain.enums.SocialType.GOOGLE;
 
-/**
- * Created by KimYJ on 2017-09-12.
- */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
