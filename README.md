@@ -4,6 +4,9 @@
 ## Requirements
 - [JDK 1.8+](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [gradle](https://gradle.org/)
+- [H2](https://www.h2database.com/html/main.html)
+
+**H2 설치 이후 실행하고 application.yml에 맞게 설정해야함**
 
 ## Build
 ```
@@ -15,3 +18,6 @@ $ ./gradlew build
 $ java -jar target/*.jar
 ```
 
+## 책과 다른 점
+- Spring Boot 1.x 버전은 사용하지 않음
+- 카카오 인증은 제거
